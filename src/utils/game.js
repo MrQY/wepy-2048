@@ -42,14 +42,15 @@ export default class Game {
         }
       }
     }
-
     // 靠边
     list = this.allCellsToSide(list)
+    let score = 0
     // 挨着的格子且值相同的合并
     for (let i = 0; i < this.size; i++) {
       for (let j = 1; j < this.size; j++) {
         if (list[i][j - 1].value === list[i][j].value && list[i][j].value !== '') {
           list[i][j - 1].value = list[i][j - 1].value + list[i][j].value
+          score += list[i][j - 1].value
           list[i][j].value = ''
           this.grid.setCellValue(list[i][j - 1])
           this.grid.setCellValue(list[i][j])
@@ -60,6 +61,7 @@ export default class Game {
     list = this.allCellsToSide(list)
     // 随机一个格子赋值
     this.setValueToCells(1)
+    return score
   }
   // 有值的格子靠边排
   allCellsToSide(list) {
