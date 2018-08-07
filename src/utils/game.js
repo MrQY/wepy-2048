@@ -83,6 +83,7 @@ export default class Game {
   }
 
   isGameOver() {
+    // 是否还有空格子
     if (this.grid.isHasEmptyCell()) {
       return false
     }
@@ -95,7 +96,7 @@ export default class Game {
     }
     for (let i = 0; i < this.size; i++) {
       for (let j = 1; j < this.size; j++) {
-        if (this.grid.rows[j][i].value === this.grid.rows[i - 1][j].value) {
+        if (this.grid.rows[j][i].value === this.grid.rows[j - 1][i].value) {
           return false
         }
       }

@@ -180,9 +180,7 @@
         <view class="grid" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
             <view class='row' wx:for="{{rows}}" wx:for-item="row" wx:key="row.key">
                 <view class='column' wx:for="{{row}}" wx:for-item="cell" wx:key="cell.key">
-                    <view class='cell cell-{{cell.value}}' data-x='{{cell.x}}' data-y='{{cell.y}}'>
-                        {{cell.value}}
-                    </view>
+                    <view class='cell cell-{{cell.value}}' data-x='{{cell.x}}' data-y='{{cell.y}}'>{{cell.value}}</view>
                 </view>
             </view>
         </view>
@@ -201,7 +199,8 @@ import wepy from 'wepy'
 import Game from '../utils/game'
 export default class Index extends wepy.page {
   config = {
-    navigationBarTitleText: '2048'
+    navigationBarTitleText: '2048小游戏',
+    disableScroll: true
   }
   data = {
     rows: [],
@@ -236,7 +235,8 @@ export default class Index extends wepy.page {
       let directionY = this.touchEndClientY - this.touchStartClientY
       let absDy = Math.abs(directionY)
       if (this.game.isGameOver()) {
-        this.gameOver()
+        // console.log(this.rows)
+        this.gameIsOver()
       } else {
         if (Math.max(absDx, absDy) > 10) {
           let direction =
@@ -260,7 +260,7 @@ export default class Index extends wepy.page {
     this.bestScore = wx.getStorageSync('bestScore')
     this.gameOver = false
   }
-  gameOver() {
+  gameIsOver() {
     this.setData({
       gameOver: true
     })
